@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLayer", "WebLayer\WebLayer.csproj", "{A63491D8-334A-4089-8D3B-C8841AEED053}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLayer", "WebLayer\WebLayer.csproj", "{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A63491D8-334A-4089-8D3B-C8841AEED053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A63491D8-334A-4089-8D3B-C8841AEED053}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A63491D8-334A-4089-8D3B-C8841AEED053}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A63491D8-334A-4089-8D3B-C8841AEED053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
