@@ -5,7 +5,7 @@ namespace WebLayer
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
+        // Para obtener más información sobre Bundles, visite http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -14,8 +14,8 @@ namespace WebLayer
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
+            // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
+            // preparado para la producción y podrá utilizar la herramienta de compilación disponible en http://modernizr.com para seleccionar solo las pruebas que necesite.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -29,14 +29,10 @@ namespace WebLayer
             bundles.Add(new ScriptBundle("~/bundles/switAlert").Include(
                       "~/Scripts/switAlert.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/metisMenu").Include(
-                      "~/Scripts/metisMenu.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/metisMenu.css",
-                      "~/Content/nPe5n.css",
                       "~/Content/switAlert.css",
+                      "~/Content/nPe5n.css",
                       "~/Content/site.css"));
         }
     }
