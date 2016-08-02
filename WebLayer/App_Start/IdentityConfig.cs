@@ -106,4 +106,35 @@ namespace WebLayer
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
+
+    public class SignInHelper
+    {
+        public SignInHelper(ApplicationUserManager userManager, IAuthenticationManager authManager)
+        {
+            UserManager = userManager;
+            AuthenticationManager = authManager;
+        }
+
+        public ApplicationUserManager UserManager { get; private set; }
+        public IAuthenticationManager AuthenticationManager { get; private set; }
+
+        public void SignIn(string userName)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie,
+                                          DefaultAuthenticationTypes.TwoFactorCookie);
+
+            // create required claims
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, userName));
+            claims.Add(new Claim(ClaimTypes.Name, userName));
+            
+            claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", userName));
+            claims.Add(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", userName));
+
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = false }, identity);
+
+        }
+    }
 }

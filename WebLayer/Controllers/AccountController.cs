@@ -52,6 +52,20 @@ namespace WebLayer.Controllers
             }
         }
 
+        private SignInHelper _helper;
+
+        private SignInHelper SignInHelper
+        {
+            get
+            {
+                if (_helper == null)
+                {
+                    _helper = new SignInHelper(UserManager, AuthenticationManager);
+                }
+                return _helper;
+            }
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -75,7 +89,15 @@ namespace WebLayer.Controllers
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInStatus.Success;// 
+           // var result=await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            SignInHelper.SignIn(model.Email);
+            var x = ((ClaimsIdentity)User.Identity).Claims;
+            foreach (var item in x)
+            {
+                Console.WriteLine(item.Type+" "+ item.Value );
+            }
+            
             switch (result)
             {
                 case SignInStatus.Success:
