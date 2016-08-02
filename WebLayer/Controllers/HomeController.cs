@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccess;
 
 namespace WebLayer.Controllers
 {
@@ -10,6 +11,8 @@ namespace WebLayer.Controllers
     {
         public ActionResult Index()
         {
+            DataAccessObject a = new DataAccessObject("DBModels");
+            a.cc();
             return View();
         }
 
