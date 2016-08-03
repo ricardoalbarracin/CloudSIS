@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AtomicTransaction.cs" />
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataAccessObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
