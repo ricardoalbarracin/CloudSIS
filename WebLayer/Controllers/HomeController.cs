@@ -10,26 +10,24 @@ using System.Diagnostics;
 
 namespace WebLayer.Controllers
 {
-    public class modelo
+    public class TIposDocumentos
     {
-        public int id { get; set; }
-        public string cargo { get; set; }
-        public string sede { get; set; }
-        public int salario { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Sigla { get; set; }
     }
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-
-
             // Inicia el contador:
-            Stopwatch tiempo = Stopwatch.StartNew();
-            for (int i = 0; i < 10; i++)
-            {
-                DataAccessObject ourDB = new DataAccessObject("DBModels");
-                IEnumerable<modelo> a = ourDB.ExecuteReader<modelo>("SELECT * FROM cargos;");
-            }
+            DataAccessObject ourDB2 = new DataAccessObject("DBModels");
+            AtomicTransaction atom = ourDB2.CreateAtomicTransaction();
+            dynamic data = new { Nombre="Cedula de ciudadania", Sigla="CC" };
+            int aa=ourDB2.ExecuteNonQuery("INSERT INTO gen.tdocumento(nombre, sigla) VALUES(@Nombre, @Sigla);", data, atom);
+            atom.Commit();
+            DataAccessObject ourDB = new DataAccessObject("DBModels");
+            IEnumerable<TIposDocumentos> a = ourDB.ExecuteReader<TIposDocumentos>("SELECT id, nombre, sigla FROM gen.tdocumento;");
             return View();
         }
 
