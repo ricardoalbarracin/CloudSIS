@@ -5,14 +5,31 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccess;
 
+using System.Data;
+using System.Diagnostics;
+
 namespace WebLayer.Controllers
 {
+    public class modelo
+    {
+        public int id { get; set; }
+        public string cargo { get; set; }
+        public string sede { get; set; }
+        public int salario { get; set; }
+    }
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            DataAccessObject a = new DataAccessObject("DBModels");
-            a.cc();
+
+
+            // Inicia el contador:
+            Stopwatch tiempo = Stopwatch.StartNew();
+            for (int i = 0; i < 10; i++)
+            {
+                DataAccessObject ourDB = new DataAccessObject("DBModels");
+                IEnumerable<modelo> a = ourDB.ExecuteReader<modelo>("SELECT * FROM cargos;");
+            }
             return View();
         }
 
