@@ -7,7 +7,7 @@ using System.Linq;
 using Slapper;
 using System.Globalization;
 
-namespace DataAccess
+namespace DataAccessLayer
 {
     /// <summary>
     /// clase para el manejo del acceso a los datos en persistencia

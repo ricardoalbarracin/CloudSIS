@@ -5,7 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLayer", "WebLayer\WebLayer.csproj", "{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{D9D23562-0030-43AB-B39A-4D1FA0F6F190}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccess\DataAccessLayer.csproj", "{D9D23562-0030-43AB-B39A-4D1FA0F6F190}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{CAAEA063-1DFC-4099-AF65-2040901D6909}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{EC5FEF43-724E-4AFE-B1B0-F604E34B1DF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLayer", "{8F995610-4FA4-487F-933C-F0F662DCAD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +30,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBED18E1-E8C4-43C0-98D5-49FDE72A8FBA} = {CAAEA063-1DFC-4099-AF65-2040901D6909}
+		{D9D23562-0030-43AB-B39A-4D1FA0F6F190} = {EC5FEF43-724E-4AFE-B1B0-F604E34B1DF6}
 	EndGlobalSection
 EndGlobal

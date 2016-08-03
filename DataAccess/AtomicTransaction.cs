@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 
-namespace DataAccess
+namespace DataAccessLayer
 {
     
     /// <summary>
