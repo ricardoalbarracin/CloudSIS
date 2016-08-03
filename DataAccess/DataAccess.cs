@@ -3,21 +3,15 @@ using System.Data;
 using System.Data.Common;
 using System.Configuration;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using Slapper;
 using System.Globalization;
-using System.Data.SqlClient;
 
 namespace DataAccess
 {
-    public class modelo
-    {
-        public int id { get; set; }
-        public string cargo { get; set; }
-        public string sede { get; set; }
-        public int salario { get; set; }
-    }
+    /// <summary>
+    /// clase para el manejo del acceso a los datos en persistencia
+    /// </summary>
     public class DataAccessObject
     {
         private string _ConnectionString = "";
@@ -31,6 +25,10 @@ namespace DataAccess
             get { return connectionStringName; }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="ConnectionStringName">Nombre de la conexión</param>
         public DataAccessObject(string ConnectionStringName)
         {
             connectionStringName = ConnectionStringName;
@@ -41,6 +39,10 @@ namespace DataAccess
             textInfo = new CultureInfo("en-US").TextInfo;
         }
 
+        /// <summary>
+        /// crea un objeto AtomicTransaction que controlara la persistencia de los datos
+        /// </summary>
+        /// <returns></returns>
         public AtomicTransaction CreateAtomicTransaction()
         {
             DbConnection conn = GetConnection();
@@ -52,6 +54,10 @@ namespace DataAccess
             return atomicTransaction;
         }
 
+        /// <summary>
+        /// crea una nueva conexión a los datos en persistencia
+        /// </summary>
+        /// <returns>la nueva conexión</returns>
         public DbConnection GetConnection()
         {
             DbConnection curConn = factory.CreateConnection();
@@ -59,66 +65,127 @@ namespace DataAccess
             return curConn;
         }
 
+        /// <summary>
+        /// ejecuta un comando de lectura de los datos en persistencia
+        /// </summary>
+        /// <typeparam name="T">tipo de objeto que se mapeara</typeparam>
+        /// <param name="cmdText">consulta sql</param>
+        /// <returns>un listado de los datos mapeados</returns>
         public IEnumerable<T> ExecuteReader<T>(string cmdText)
         {
-            
             DbConnection conn = GetConnection();
             DbCommand cmd = factory.CreateCommand();
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
-            
-            try
+
+            conn.Open();
+            DbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            var list = new List<IDictionary<string, object>>();
+            if (reader.HasRows)
             {
-                conn.Open();
-                DbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                var list = new List<IDictionary<string, object>>();
-                if (reader.HasRows)
+                var count = reader.FieldCount;
+                string rowName, rowType;
+                dynamic rowValue;
+                while (reader.Read())
                 {
-                    var count = reader.FieldCount;
-                    string rowName, rowType;
-                    dynamic rowValue;
-                    while (reader.Read())
+                    var row = new Dictionary<string, object>();
+                    for (int i = 0; i < count; i++)
                     {
-                        var row = new Dictionary<string, object>();
-                        for (int i = 0; i < count; i++)
+                        rowName = ToTitleCase(reader.GetName(i), textInfo);
+                        rowValue = reader.GetValue(i);
+                        rowType = reader.GetDataTypeName(i);
+
+                        switch (rowType)
                         {
-                            rowName = ToTitleCase(reader.GetName(i), textInfo);
-                            rowValue = reader.GetValue(i);
-                            rowType = reader.GetDataTypeName(i);
+                            case "Decimal":
+                                if (reader.IsDBNull(i)) row[rowName] = null;
+                                else row[rowName] = (double)rowValue;
+                                break;
 
-                            switch (rowType)
-                            {
-                                case "Decimal":
-                                    if (reader.IsDBNull(i)) row[rowName] = null;
-                                    else row[rowName] = (double)rowValue;
-                                    break;
+                            case "Date":
+                                if (reader.IsDBNull(i)) row[rowName] = null;
+                                else row[rowName] = (DateTime)rowValue;
+                                break;
 
-                                case "Date":
-                                    if (reader.IsDBNull(i)) row[rowName] = null;
-                                    else row[rowName] = (DateTime)rowValue;
-                                    break;
-
-                                default:
-                                    row[rowName] = reader.IsDBNull(i) ? null : rowValue;
-                                    break;
-                            }
+                            default:
+                                row[rowName] = reader.IsDBNull(i) ? null : rowValue;
+                                break;
                         }
-
-                        list.Add(row);
                     }
-                    reader.Dispose();
+
+                    list.Add(row);
                 }
-                reader.Close();
                 reader.Dispose();
-                return list.Select(item => AutoMapper.Map<T>(item)); ;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            reader.Close();
+            reader.Dispose();
+            return list.Select(item => AutoMapper.Map<T>(item)); ;
         }
 
-        public int ExecuteNonQuery(string cmdText , object parameters =null, AtomicTransaction atom=null )
+        /// <summary>
+        /// ejecuta un comando de lectura de los datos en persistencia
+        /// </summary>
+        /// <param name="cmdText">consulta sql</param>
+        /// <returns>un listado de los datos</returns>
+        public dynamic ExecuteReader(string cmdText)
+        {
+            DbConnection conn = GetConnection();
+            DbCommand cmd = factory.CreateCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = cmdText;
+
+            conn.Open();
+            DbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            var list = new List<IDictionary<string, object>>();
+            if (reader.HasRows)
+            {
+                var count = reader.FieldCount;
+                string rowName, rowType;
+                dynamic rowValue;
+                while (reader.Read())
+                {
+                    var row = new Dictionary<string, object>();
+                    for (int i = 0; i < count; i++)
+                    {
+                        rowName = ToTitleCase(reader.GetName(i), textInfo);
+                        rowValue = reader.GetValue(i);
+                        rowType = reader.GetDataTypeName(i);
+
+                        switch (rowType)
+                        {
+                            case "Decimal":
+                                if (reader.IsDBNull(i)) row[rowName] = null;
+                                else row[rowName] = (double)rowValue;
+                                break;
+
+                            case "Date":
+                                if (reader.IsDBNull(i)) row[rowName] = null;
+                                else row[rowName] = (DateTime)rowValue;
+                                break;
+
+                            default:
+                                row[rowName] = reader.IsDBNull(i) ? null : rowValue;
+                                break;
+                        }
+                    }
+
+                    list.Add(row);
+                }
+                reader.Dispose();
+            }
+            reader.Close();
+            reader.Dispose();
+            return list;
+        }
+
+        /// <summary>
+        /// Metodo para ejecutar comandos de actualizacion e inserción de datos en persistencia
+        /// </summary>
+        /// <param name="cmdText">Comando sql</param>
+        /// <param name="parameters">objetos que contiene los datos de entrada</param>
+        /// <param name="atom">transacción atomic que controlara la persistencia de los datos</param>
+        /// <returns>el numero de columnas afectadas</returns>
+        public int ExecuteNonQuery(string cmdText, object parameters = null, AtomicTransaction atom = null)
         {
             DbConnection conn;
             DbCommand cmd;
@@ -134,7 +201,7 @@ namespace DataAccess
             }
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
-            
+
             string[] propertyNames = parameters.GetType().GetProperties().Select(p => p.Name).ToArray();
             foreach (var prop in propertyNames)
             {
@@ -164,7 +231,7 @@ namespace DataAccess
         /// <param name="value">Cadena de texto a convertir</param>
         /// <param name="textInfo">Objeto culturizado para la conversion</param>
         /// <returns></returns>
-        public static string ToTitleCase(string value, TextInfo textInfo)
+        public string ToTitleCase(string value, TextInfo textInfo)
         {
             string result = textInfo.ToTitleCase(value.ToLower()).Replace("_", string.Empty);
             return result;

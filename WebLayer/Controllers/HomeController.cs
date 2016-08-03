@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace WebLayer.Controllers
 {
-    public class TIposDocumentos
+    public class TiposDocumentos
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
@@ -27,7 +27,7 @@ namespace WebLayer.Controllers
             int aa=ourDB2.ExecuteNonQuery("INSERT INTO gen.tdocumento(nombre, sigla) VALUES(@Nombre, @Sigla);", data, atom);
             atom.Commit();
             DataAccessObject ourDB = new DataAccessObject("DBModels");
-            IEnumerable<TIposDocumentos> a = ourDB.ExecuteReader<TIposDocumentos>("SELECT id, nombre, sigla FROM gen.tdocumento;");
+            IEnumerable<TiposDocumentos> a = ourDB.ExecuteReader<TiposDocumentos>("SELECT id, nombre, sigla FROM gen.tdocumento;");
             return View();
         }
 
