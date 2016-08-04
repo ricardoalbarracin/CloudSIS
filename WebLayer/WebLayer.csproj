@@ -259,9 +259,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLComponents\BLComponents.csproj">
+      <Project>{17d92e63-4e3e-45d8-9ba4-2aff00037931}</Project>
+      <Name>BLComponents</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccessLayer.csproj">
       <Project>{d9d23562-0030-43ab-b39a-4d1fa0f6f190}</Project>
       <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecurityBL\SecurityBL.csproj">
+      <Project>{b75929db-c7ea-4936-8129-85ec39f9d5b4}</Project>
+      <Name>SecurityBL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

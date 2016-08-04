@@ -83,13 +83,12 @@ namespace DataAccessLayer
             var list = new List<IDictionary<string, object>>();
             if (reader.HasRows)
             {
-                var count = reader.FieldCount;
                 string rowName, rowType;
                 dynamic rowValue;
                 while (reader.Read())
                 {
                     var row = new Dictionary<string, object>();
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < reader.FieldCount; i++)
                     {
                         rowName = ToTitleCase(reader.GetName(i), textInfo);
                         rowValue = reader.GetValue(i);
