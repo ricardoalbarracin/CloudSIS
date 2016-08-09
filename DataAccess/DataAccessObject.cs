@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Slapper;
 using System.Globalization;
-
+using Npgsql;
 namespace DataAccessLayer
 {
     /// <summary>
@@ -14,6 +14,7 @@ namespace DataAccessLayer
     /// </summary>
     public class DataAccessObject
     {
+        
         private string _ConnectionString = "";
         private string connectionStringName = "";
         private string providerName = "";
@@ -35,7 +36,7 @@ namespace DataAccessLayer
             var a = ConfigurationManager.ConnectionStrings[ConnectionStringName];
             _ConnectionString = a.ConnectionString;
             providerName = a.ProviderName;
-            factory = DbProviderFactories.GetFactory(providerName);
+            factory = Npgsql.NpgsqlFactory.Instance;// DbProviderFactories.GetFactory(providerName);
             textInfo = new CultureInfo("en-US").TextInfo;
         }
 
@@ -68,113 +69,44 @@ namespace DataAccessLayer
         /// <summary>
         /// ejecuta un comando de lectura de los datos en persistencia
         /// </summary>
-        /// <typeparam name="T">tipo de objeto que se mapeara</typeparam>
-        /// <param name="cmdText">consulta sql</param>
-        /// <returns>un listado de los datos mapeados</returns>
-        public IEnumerable<T> ExecuteReader<T>(string cmdText)
-        {
-            DbConnection conn = GetConnection();
-            DbCommand cmd = factory.CreateCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = cmdText;
-
-            conn.Open();
-            DbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            var list = new List<IDictionary<string, object>>();
-            if (reader.HasRows)
-            {
-                string rowName, rowType;
-                dynamic rowValue;
-                while (reader.Read())
-                {
-                    var row = new Dictionary<string, object>();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        rowName = ToTitleCase(reader.GetName(i), textInfo);
-                        rowValue = reader.GetValue(i);
-                        rowType = reader.GetDataTypeName(i);
-
-                        switch (rowType)
-                        {
-                            case "Decimal":
-                                if (reader.IsDBNull(i)) row[rowName] = null;
-                                else row[rowName] = (double)rowValue;
-                                break;
-
-                            case "Date":
-                                if (reader.IsDBNull(i)) row[rowName] = null;
-                                else row[rowName] = (DateTime)rowValue;
-                                break;
-
-                            default:
-                                row[rowName] = reader.IsDBNull(i) ? null : rowValue;
-                                break;
-                        }
-                    }
-
-                    list.Add(row);
-                }
-                reader.Dispose();
-            }
-            reader.Close();
-            reader.Dispose();
-            return list.Select(item => AutoMapper.Map<T>(item)); ;
-        }
-
-        /// <summary>
-        /// ejecuta un comando de lectura de los datos en persistencia
-        /// </summary>
         /// <param name="cmdText">consulta sql</param>
         /// <returns>un listado de los datos</returns>
-        public dynamic ExecuteReader(string cmdText)
+        public dynamic ExecuteReader(string cmdText, object parameters = null, bool isList = true)
         {
             DbConnection conn = GetConnection();
             DbCommand cmd = factory.CreateCommand();
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
 
+            string[] propertyNames = parameters.GetType().GetProperties().Select(p => p.Name).ToArray();
+            foreach (var prop in propertyNames)
+            {
+                object propValue = parameters.GetType().GetProperty(prop).GetValue(parameters, null);
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@" + prop;
+                param.Value = propValue;
+                cmd.Parameters.Add(param);
+            }
+
             conn.Open();
             DbDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            var list = new List<IDictionary<string, object>>();
-            if (reader.HasRows)
+            List<IDictionary<string, object>> list = null;
+            bool hasRows = reader.HasRows;
+            if (hasRows)
             {
-                var count = reader.FieldCount;
-                string rowName, rowType;
-                dynamic rowValue;
-                while (reader.Read())
-                {
-                    var row = new Dictionary<string, object>();
-                    for (int i = 0; i < count; i++)
-                    {
-                        rowName = ToTitleCase(reader.GetName(i), textInfo);
-                        rowValue = reader.GetValue(i);
-                        rowType = reader.GetDataTypeName(i);
-
-                        switch (rowType)
-                        {
-                            case "Decimal":
-                                if (reader.IsDBNull(i)) row[rowName] = null;
-                                else row[rowName] = (double)rowValue;
-                                break;
-
-                            case "Date":
-                                if (reader.IsDBNull(i)) row[rowName] = null;
-                                else row[rowName] = (DateTime)rowValue;
-                                break;
-
-                            default:
-                                row[rowName] = reader.IsDBNull(i) ? null : rowValue;
-                                break;
-                        }
-                    }
-
-                    list.Add(row);
-                }
-                reader.Dispose();
+                list = DbDataReaderToList(reader);
             }
+            reader.Dispose();
             reader.Close();
             reader.Dispose();
-            return list;
+            if (hasRows)
+            {
+                if (isList)
+                    return list;
+                else
+                    return list[0];
+            }
+            return null;
         }
 
         /// <summary>
@@ -234,6 +166,44 @@ namespace DataAccessLayer
         {
             string result = textInfo.ToTitleCase(value.ToLower()).Replace("_", string.Empty);
             return result;
+        }
+
+        private List<IDictionary<string, object>> DbDataReaderToList(DbDataReader reader)
+        {
+            List<IDictionary<string, object>> list = new List<IDictionary<string, object>>();
+                string rowName, rowType;
+            dynamic rowValue;
+
+            while (reader.Read())
+            {
+                Dictionary<string, object> row = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    rowName = ToTitleCase(reader.GetName(i), textInfo);
+                    rowValue = reader.GetValue(i);
+                    rowType = reader.GetDataTypeName(i);
+
+                    switch (rowType)
+                    {
+                        case "Decimal":
+                            if (reader.IsDBNull(i)) row[rowName] = null;
+                            else row[rowName] = (double)rowValue;
+                            break;
+
+                        case "Date":
+                            if (reader.IsDBNull(i)) row[rowName] = null;
+                            else row[rowName] = (DateTime)rowValue;
+                            break;
+
+                        default:
+                            row[rowName] = reader.IsDBNull(i) ? null : rowValue;
+                            break;
+                    }
+                }
+
+                list.Add(row);
+            }
+            return list;
         }
     }
 }

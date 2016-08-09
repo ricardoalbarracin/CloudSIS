@@ -58,6 +58,8 @@ namespace WebLayer.Models
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        public string Clave { get; set; }
+
         [Display(Name = "¿Recordar cuenta?")]
         public bool RememberMe { get; set; }
     }

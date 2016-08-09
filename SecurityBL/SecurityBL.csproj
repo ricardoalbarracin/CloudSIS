@@ -41,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AccountBl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityDTOs.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Aspectos\Aspectos.csproj">
+      <Project>{e21609d6-e084-4090-a17c-a9c0c1223bcd}</Project>
+      <Name>Aspectos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLComponents\BLComponents.csproj">
       <Project>{17d92e63-4e3e-45d8-9ba4-2aff00037931}</Project>
       <Name>BLComponents</Name>

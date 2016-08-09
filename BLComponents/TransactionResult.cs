@@ -8,16 +8,10 @@ namespace BLComponents
 {
     public class InterceptContext : ContextBoundObject { }
 
-    [AspectLogger()]
-    public class TransactionResult : InterceptContext
+    public class TransactionResult 
     {
         public TransactionStatus Status { get; set; }
         public dynamic DataObject { get; set; }
         public string Message { get; set; }
-
-        public void prueba()
-        {
-
-        }
     }
 }
