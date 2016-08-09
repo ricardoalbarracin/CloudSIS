@@ -12,12 +12,12 @@ namespace WebLayer
     {
         protected void Application_Start()
         {
-            //BundleTable.EnableOptimizations = false;
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+            //BundleTable.EnableOptimizations = false;
         }
     }
 }
