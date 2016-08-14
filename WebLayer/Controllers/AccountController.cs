@@ -95,17 +95,17 @@ namespace WebLayer.Controllers
 
             if (result.DataObject != null)
             {
-                var isAuthenticated = UserManager.PasswordHasher.VerifyHashedPassword(result.DataObject["Clave"], model.Password);
-                if (isAuthenticated == PasswordVerificationResult.Failed)
-                {
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
-                }
-                else
-                {
+                //var isAuthenticated = UserManager.PasswordHasher.VerifyHashedPassword(result.DataObject["Clave"], model.Password);
+                //if (isAuthenticated == PasswordVerificationResult.Failed)
+                //{
+                //    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+                //    return View(model);
+                //}
+                //else
+                //{
                     SignInHelper.SignIn(result.DataObject["Nombre"]);
                     return RedirectToLocal(returnUrl);
-                }
+                //}
             }
             else
             {
