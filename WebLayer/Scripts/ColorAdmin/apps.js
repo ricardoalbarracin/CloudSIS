@@ -225,8 +225,8 @@ var handleSidebarMinify = function() {
 ------------------------------------------------ */
 var handlePageContentView = function() {
     "use strict";
-    $.when($('#page-loader').addClass('hide')).done(function() {
-        $('#page-container').addClass('in');
+    $.when($('#page-loader').addClass('FadeOut')).done(function () {
+        $('#Body-container').addClass('in');
     });
 };
 
@@ -1144,3 +1144,43 @@ var App = function () {
 		}
   };
 }();
+
+/* Inicializa menu antes de que cargar la página
+------------------------------------------------------ */
+function handlePixelAdminMenuExtended() {
+    var detect_active_predicate = function (href, url) {
+        return href === url;
+    }
+
+    var elHasClass = function (el, selector) {
+        return (" " + el.className + " ").indexOf(" " + selector + " ") > -1;
+    };
+
+    var a, bubble, links, nav, predicate, url, _i, _len, _results;
+    url = (document.location + '').replace(/\#.*?$/, '');
+    predicate = detect_active_predicate;
+    nav = $('#main-menu');
+    nav.find('li').removeClass('open active');
+    links = nav[0].getElementsByTagName('a');
+    bubble = (function () {
+        return function (li) {
+                li.className += ' active';
+                if (!elHasClass(li.parentNode, 'nav')) {
+                    li = li.parentNode.parentNode;
+                    return bubble(li);
+                }
+        };
+    })(this);
+
+    _results = [];
+    for (_i = 0, _len = links.length; _i < _len; _i++) {
+        a = links[_i];
+        if (a.href.indexOf('#') === -1 && predicate(a.href, url)) {
+            bubble(a.parentNode);
+            break;
+        } else {
+            _results.push(void 0);
+        }
+    }
+    return _results;
+};

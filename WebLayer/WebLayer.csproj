@@ -202,6 +202,7 @@
     <Content Include="Content\ColorAdmin\theme\orange.css" />
     <Content Include="Content\ColorAdmin\theme\purple.css" />
     <Content Include="Content\ColorAdmin\theme\red.css" />
+    <Content Include="Content\Imgs\bg-6.jpg" />
     <Content Include="Content\Imgs\sidebar_cover.jpg" />
     <Content Include="Content\nPe5n.css" />
     <Content Include="Content\switAlert.css" />
@@ -295,7 +296,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\_Menu.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Shared\_Layout_Login.cshtml" />
+    <Content Include="Views\Shared\_Header_Menu.cshtml" />
+    <Content Include="Views\Shared\_Theme_Panel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

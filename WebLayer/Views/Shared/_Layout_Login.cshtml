@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/ColorAdmin")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/ColorAdmin")
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="/Content/ColorAdmin/theme/default.css" rel="stylesheet" id="theme" />
+</head>
+<body class="pace-top">
+
+
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/switAlert")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            App.init();
+            Dashboard.init();
+        });
+    </script>
+</body>
+</html>

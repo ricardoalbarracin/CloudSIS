@@ -188,6 +188,12 @@ body,
 html {
     height: 100%;
 }
+body {
+    background: #F6F6F6;
+    font-size: 12px;
+    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #707478;
+}
 
 
 
@@ -252,7 +258,7 @@ html {
     left: 0;
     bottom: 0;
     right: 0;
-    background: #E6E8EC;
+    /*background: #E6E8EC;*/
     z-index: 1020;
 }
 #page-loader.fade {
@@ -485,9 +491,10 @@ html {
     width: 220px;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 54px;
     bottom: 0;
-    padding-top: 54px;
+    padding-top: 0;
+    /*background: #2d353c;*/
     background: #2d353c;
     z-index: 1010;
     -webkit-transform: translateZ(0);
@@ -6236,11 +6243,11 @@ body .bootstrap-datetimepicker-widget table td {
 
     .page-sidebar-toggled .sidebar-bg {
         left: -220px;
-        z-index: 1020;
+        /*z-index: 1020;*/
     }
     .page-sidebar-toggled .sidebar {        
         left: -220px;       
-        z-index: 1030;
+        /*z-index: 1030;*/
     }
     .page-sidebar-toggled .content {
         margin-left: 0;        
@@ -6522,4 +6529,29 @@ body .bootstrap-datetimepicker-widget table td {
 }
 .nvtooltip table thead strong {
     text-decoration: underline !important;
+}
+
+.navbar-toggle {
+    display: unset !important;
+    float: left !important;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+  }
+.topright {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
+.login-buttons .btn.btn-success {
+    color: #fff;
+    background: #337ab7;
+    border-color: #337ab7;
+}
+
+.FadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s .2s, opacity .2s linear;
 }

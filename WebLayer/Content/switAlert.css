@@ -22,12 +22,15 @@
 }
 @keyframes slideFromTop {
   0% {
+    opacity:0;
     top: 0%;
   }
   60% {
+    
     top: 60%;
   }
   100% {
+    opacity:1;
     top: 50%;
   }
 }

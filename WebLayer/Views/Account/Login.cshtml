@@ -1,62 +1,68 @@
 ﻿@using WebLayer.Models
 @model LoginViewModel
 @{
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
     ViewBag.Title = "Iniciar sesión";
 }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use una cuenta local para iniciar sesión.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar sesión" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Registrar como nuevo usuario", "Register")
-                </p>
-                @* Habilite esta opción después de habilitar la confirmación de la cuenta para la función de restablecimiento de contraseña
-                    <p>
-                        @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
-    </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+<!-- begin #page-loader -->
+<!-- end #page-loader -->
+
+<div class="login-cover">
+    <div class="login-cover-image"><img src="~/Content/Imgs/bg-6.jpg" data-id="login-cover-image" alt="" /></div>
+    <div class="login-cover-bg"></div>
 </div>
+<!-- begin #page-container -->
+<div id="Body-container" class="fade">
+    <!-- begin login -->
+    <div class="login login-v2" data-pageload-addclass="animated fadeIn">
+        <!-- begin brand -->
+        <div class="login-header">
+            
+                <div class="brand">
+                    <span class="logo"></span> Color Admin
+                    <small>responsive bootstrap 3 admin template</small>
+                </div>
+            
+           
+                <div class="icon xxxxx">
+                    <i class="fa fa-sign-in"></i>
+                </div>
+           
+        </div>
+        <!-- end brand -->
+        <div class="login-content">
+            <form action="index.html" method="POST" class="margin-bottom-0">
+                <div class="form-group m-b-20">
+                    <input type="text" class="form-control input-lg" placeholder="Email Address" />
+                </div>
+                <div class="form-group m-b-20">
+                    <input type="text" class="form-control input-lg" placeholder="Password" />
+                </div>
+                <div class="checkbox m-b-20">
+                    <label>
+                        <input type="checkbox" /> Remember Me
+                    </label>
+                </div>
+                <div class="login-buttons">
+                    <button type="submit" class="btn btn-success btn-block btn-lg sss">Sign me in</button>
+                </div>
+                <div class="m-t-20">
+                    Not a member yet? Click <a href="#">here</a> to register.
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- end login -->
+</div>
+
+<!-- ================== END PAGE LEVEL JS ================== -->
+<script>
+		$(document).ready(function() {
+			App.init();
+			//LoginV2.init();
+		});
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
