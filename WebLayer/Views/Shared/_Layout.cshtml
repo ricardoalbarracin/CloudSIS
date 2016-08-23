@@ -47,17 +47,17 @@
     </div>
     <!-- end page container -->
 
-   
+   @Scripts.Render("~/bundles/ColorAdmin2")
     @Scripts.Render("~/bundles/switAlert")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     
     <script>
 		$(document).ready(function() {
-		    
+		     
 		    setTimeout(function () {
 		        App.init();
-		    }, 20);
+		    }, 10);
 
 		   
 		   

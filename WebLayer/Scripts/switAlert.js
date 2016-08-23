@@ -1,4 +1,4 @@
-﻿; (function (window, document, undefined) {
+﻿(function (window, document, undefined) {
     "use strict";
 
     (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++) s(r[o]); return s })({
@@ -554,10 +554,7 @@
             Object.defineProperty(exports, "__esModule", {
                 value: true
             });
-            var injectedHTML =
-
-            // Dark overlay
-            `
+            var injectedHTML = `
             <div class ="sweet-overlay" tabIndex="-1"></div>
 
 <div class ="sweet-alert" tabIndex="-1">
@@ -568,14 +565,14 @@
           <span class ="sa-line sa-right"></span>
           </span>
        </div>
-   
+
        <div class ="sa-icon sa-warning">
           <span class ="sa-body"></span>
           <span class ="sa-dot"></span>
        </div>
-   
+
        <div class ="sa-icon sa-info"></div>
-   
+
        <div class ="sa-icon sa-success">
           <span class ="sa-line sa-tip"></span>
           <span class ="sa-line sa-long"></span>

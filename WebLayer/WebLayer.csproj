@@ -205,6 +205,7 @@
     <Content Include="Content\Imgs\bg-6.jpg" />
     <Content Include="Content\Imgs\sidebar_cover.jpg" />
     <Content Include="Content\nPe5n.css" />
+    <Content Include="Content\switAlert.min.css" />
     <Content Include="Content\switAlert.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />

@@ -6258,7 +6258,7 @@ body .bootstrap-datetimepicker-widget table td {
 
 .page-sidebar-toggled.page-sidebar-minified .sidebar.sidebar-transparent + .sidebar-bg,
 .sidebar.sidebar-transparent + .sidebar-bg {
-    background: url('../Imgs/sidebar_cover.jpg');
+    background: url('../Content/Imgs/sidebar_cover.jpg');
     background-size: auto 100%;
 }
 .sidebar.sidebar-transparent + .sidebar-bg:before {
