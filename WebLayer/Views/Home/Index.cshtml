@@ -1,56 +1,15 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-<button type="button" class="btn btn-default active" onclick="xxx()">Light</button>
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+﻿
+    <div>
+        <label for="dtb">Introduzca el nombre de una camara:</label> <input id="dtb" data-dojo-type="dijit/form/TextBox" value="Cam4" />
+        <button id="progButtonNode" type="button">Ir a camara</button>
+    </div>
+    
+<div class="panel panel-primary">
+    <div class="panel-heading">Panel with panel-primary class</div>
+    <div class="panel-body">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'">
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
     </div>
 </div>
-
-<script>
-
-    function xxx() {
-
-        swal({
-            title: "Are you sure?",
-            text: "Your will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-function () {
-    swal("Good job!", "You clicked the button!", "success");
-    sweetAlert(
-  'Oops...',
-  'Something went wrong!',
-  'error'
-);
-});
-
-    }
-</script>

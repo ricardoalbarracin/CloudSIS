@@ -1,4 +1,5 @@
-﻿(function (window, document, undefined) {
+﻿
+(function (window, document, undefined) {
     "use strict";
 
     (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++) s(r[o]); return s })({
@@ -538,7 +539,7 @@
                 var $modal = getModal();
                 $modal.style.marginTop = (0, _handleDom.getTopMargin)(getModal());
             };
-
+            
             exports.sweetAlertInitialize = sweetAlertInitialize;
             exports.getModal = getModal;
             exports.getOverlay = getOverlay;
@@ -554,54 +555,50 @@
             Object.defineProperty(exports, "__esModule", {
                 value: true
             });
-            var injectedHTML = `
-            <div class ="sweet-overlay" tabIndex="-1"></div>
-
-<div class ="sweet-alert" tabIndex="-1">
-   <div class ="col-sm-3">
-       <div class ="sa-icon sa-error">
-          <span class ="sa-x-mark">
-          <span class ="sa-line sa-left"></span>
-          <span class ="sa-line sa-right"></span>
-          </span>
-       </div>
-
-       <div class ="sa-icon sa-warning">
-          <span class ="sa-body"></span>
-          <span class ="sa-dot"></span>
-       </div>
-
-       <div class ="sa-icon sa-info"></div>
-
-       <div class ="sa-icon sa-success">
-          <span class ="sa-line sa-tip"></span>
-          <span class ="sa-line sa-long"></span>
-          <div class ="sa-placeholder"></div>
-          <div class ="sa-fix"></div>
-       </div>
-       <div class ="sa-icon sa-custom"></div>
-   </div>
-   <div class ="col-sm-9">
-       <h3>Title</h3>
-       <h4>Text</h4>
-       <div class ="form-group">
-          <input type="text" class ="form-control" tabIndex="3" />
-          <span class ="sa-input-error help-block">
-          <span class ="glyphicon glyphicon-exclamation-sign"></span> <span class="sa-help-text">Not valid</span>
-          </span>
-       </div>
-   </div>
-
-   <div class ="col-sm-12 nopadding">
-       <div class ="button-container">
-            <button class ="cancel btn btn" tabIndex="2">Cancel</button>
-            <div class ="sa-confirm-button-container">
-                <button class ="confirm btn btn" tabIndex="1">OK</button>
-            </div>
-          </div>
-       </div>
-</div>
-`;
+          
+            var injectedHTML = '\
+<div class="sweet-overlay" tabIndex="-1"></div>\
+<div class="sweet-alert" tabIndex="-1">\
+<div class="col-sm-3">\
+<div class="sa-icon sa-error">\
+<span class="sa-x-mark">\
+<span class="sa-line sa-left"></span>\
+<span class="sa-line sa-right"></span>\
+</span>\
+</div>\
+<div class="sa-icon sa-warning">\
+<span class="sa-body"></span>\
+<span class="sa-dot"></span>\
+</div>\
+<div class="sa-icon sa-info"></div>\
+<div class="sa-icon sa-success">\
+<span class="sa-line sa-tip"></span>\
+<span class="sa-line sa-long"></span>\
+<div class="sa-placeholder"></div>\
+<div class="sa-fix"></div>\
+</div>\
+<div class="sa-icon sa-custom"></div>\
+</div>\
+<div class="col-sm-9">\
+<h3>Title</h3>\
+<h4>Text</h4>\
+<div class="form-group">\
+<input type="text" class="form-control" tabIndex="3" />\
+<span class="sa-input-error help-block">\
+<span class="glyphicon glyphicon-exclamation-sign"></span> <span class="sa-help-text">Not valid</span>\
+</span>\
+</div>\
+</div>\
+<div class="col-sm-12 nopadding">\
+<div class="button-container">\
+<button class="cancel btn btn" tabIndex="2">Cancel</button>\
+<div class="sa-confirm-button-container">\
+<button class="confirm btn btn" tabIndex="1">OK</button>\
+</div>\
+</div>\
+</div>\
+</div>\
+';
 
 
             exports.default = injectedHTML;

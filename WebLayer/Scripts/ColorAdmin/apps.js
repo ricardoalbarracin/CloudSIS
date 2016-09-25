@@ -129,7 +129,9 @@ var handleMobileSidebarToggle = function() {
         if (!e.isPropagationStopped() && sidebarProgress !== true) {
             if ($('#page-container').hasClass('page-sidebar-toggled')) {
                 sidebarProgress = true;
-                $('#page-container').removeClass('page-sidebar-toggled');
+                if ($(window).width() < 767) {
+                    $('#page-container').removeClass('page-sidebar-toggled');
+                }
             }
             if ($(window).width() <= 767) {
                 if ($('#page-container').hasClass('page-right-sidebar-toggled')) {
@@ -1078,7 +1080,7 @@ var handleTopMenuMobileToggle = function() {
 var handleClearSidebarSelection = function() {
     $('.sidebar .nav > li, .sidebar .nav .sub-menu').removeClass('expand').removeAttr('style');
 };
-var handleClearSidebarMobileSelection = function() {
+var handleClearSidebarMobileSelection = function () {
     $('#page-container').removeClass('page-sidebar-toggled');
 };
 

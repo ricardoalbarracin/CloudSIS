@@ -61,7 +61,7 @@ Website: http://www.seantheme.com/color-admin-v1.9/admin/
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .login .login-header .icon i {
     font-size: 40px;
 }
