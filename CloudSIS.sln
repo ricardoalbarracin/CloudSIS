@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-Aspectos", "0-Aspectos", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspectos", "Aspectos\Aspectos.csproj", "{E21609D6-E084-4090-A17C-A9C0C1223BCD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Service-Layer", "4-Service-Layer", "{B38EAB5D-40B6-49EF-A25D-EDD5F079F4E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

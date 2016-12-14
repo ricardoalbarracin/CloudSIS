@@ -67,6 +67,32 @@ namespace WebLayer.Controllers
                 return _helper;
             }
         }
+        [AllowAnonymous]
+        public ActionResult  UserValidate()
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetUserByName(new { Email = "ricardoa88@gmail.com" });
+
+            //ViewBag.ReturnUrl = returnUrl;
+            //SecurityBL.AccountBl bl = new SecurityBL.AccountBl();
+            //Usuario result = bl.GetUserByName(new { Nombre = "ricardo" });
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult UserValidatePost()
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetUserByName(new { Email = "ricardoa88@gmail.com" });
+
+            //ViewBag.ReturnUrl = returnUrl;
+            //SecurityBL.AccountBl bl = new SecurityBL.AccountBl();
+            //Usuario result = bl.GetUserByName(new { Nombre = "ricardo" });
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
 
         //
         // GET: /Account/Login
