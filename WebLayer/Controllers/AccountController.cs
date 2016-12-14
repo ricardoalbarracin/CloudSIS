@@ -82,11 +82,11 @@ namespace WebLayer.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult UserValidatePost()
+        public ActionResult UserValidatePost(string Email,string Clave)
         {
             JsonResult result = new JsonResult();
             AccountBl bl = new AccountBl();
-            TransactionResult trans = bl.GetUserByName(new { Email = "ricardoa88@gmail.com" });
+            TransactionResult trans = bl.GetUserByName(new { Email = Email, Clave = Clave });
 
             //ViewBag.ReturnUrl = returnUrl;
             //SecurityBL.AccountBl bl = new SecurityBL.AccountBl();
