@@ -94,6 +94,17 @@ namespace WebLayer.Controllers
             return Json(trans, JsonRequestBehavior.AllowGet);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult GetDetalleCita(int Cita)
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetDetalleCita(new { Cita = Cita });
+                        
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
