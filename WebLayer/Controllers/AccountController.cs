@@ -88,9 +88,17 @@ namespace WebLayer.Controllers
             AccountBl bl = new AccountBl();
             TransactionResult trans = bl.GetUserByName(new { Email = Email, Clave = Clave });
 
-            //ViewBag.ReturnUrl = returnUrl;
-            //SecurityBL.AccountBl bl = new SecurityBL.AccountBl();
-            //Usuario result = bl.GetUserByName(new { Nombre = "ricardo" });
+            
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult GetCitasAsignadas(int Idafiliado)
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetCitasAsignadas(new { Idafiliado = Idafiliado });
             return Json(trans, JsonRequestBehavior.AllowGet);
         }
 
