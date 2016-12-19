@@ -58,5 +58,41 @@ namespace SecurityBL
             result.Message = "asdasdasd";
             return result;
         }
+
+
+        public dynamic GetCitasDisponibles()
+        {
+            TransactionResult result = new TransactionResult();
+            DataAccessObject ourDB = new DataAccessObject("DBModelsAWS");
+            var a = ourDB.ExecuteReader(
+           @"SELECT a.estado, m.nombres as medico, a.fecha ,  con.nombre as consultorio, e.nombre as esm, esp.nombres as especialidad 
+             FROM agendamiento.agenda a               
+                inner join agendamiento.medico m on a.idmedico=m.id
+                inner join agendamiento.consultorio con on a.idconsultorio=con.id
+                inner join agendamiento.esm e on (a.idesm=e.id)
+                inner join agendamiento.especialidad esp on (a.idespecialidad=esp.id)
+                where a.estado='Disponible';", true);
+            result.DataObject = a;
+            result.Message = "Citas disponibles";
+            return result;
+        }
+
+        public dynamic GetCitasDisponiblesAutorizadas(dynamic data)
+        {
+            TransactionResult result = new TransactionResult();
+            DataAccessObject ourDB = new DataAccessObject("DBModelsAWS");
+            var a = ourDB.ExecuteReader(
+           @"SELECT a.estado, m.nombres as medico, a.fecha ,  con.nombre as consultorio, e.nombre as esm, esp.nombres as especialidad 
+            FROM agendamiento.agenda a               
+                inner join agendamiento.medico m on a.idmedico=m.id
+                inner join agendamiento.consultorio con on a.idconsultorio=con.id
+                inner join agendamiento.esm e on (a.idesm=e.id)
+                inner join agendamiento.especialidad esp on (a.idespecialidad=esp.id)
+                inner join agendamiento.autorizacion aut on (e.id = aut.idesm and aut.idespecialidad=esp.id and aut.codigo=@Autorizacion)
+                where a.estado='Disponible';", data, true);
+            result.DataObject = a;
+            result.Message = "Citas disponibles";
+            return result;
+        }
     }
 }

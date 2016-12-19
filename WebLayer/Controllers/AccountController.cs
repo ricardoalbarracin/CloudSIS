@@ -104,6 +104,26 @@ namespace WebLayer.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        public ActionResult GetCitasDisponibles()
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetCitasDisponibles();
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult GetCitasDisponiblesAutorizadas(string Autorizacion)
+        {
+            JsonResult result = new JsonResult();
+            AccountBl bl = new AccountBl();
+            TransactionResult trans = bl.GetCitasDisponiblesAutorizadas(new { Autorizacion = Autorizacion });
+            return Json(trans, JsonRequestBehavior.AllowGet);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult GetDetalleCita(int Cita)
         {
             JsonResult result = new JsonResult();
